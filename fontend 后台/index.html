@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        body{
+            margin-left: 50px;
+            margin-top: 50px;
+        }
+        ul{
+            overflow: hidden;
+        }
+        ul li{
+            float: left;
+            margin-left: 10px;
+        }
+    </style>
+    <script src="jquery-3.1.1.js"></script>
+    <script>
+        $(function () {
+            $('#ww>div').hide()
+            $('li').click(function () {
+                console.log($(this).index())
+                $('#ww>div').hide().eq($(this).index()).show()
+            })
+            $.ajax({
+                url:'http://localhost:3000/item/list',
+                type:'get',
+                dataType:'json',
+                success:function (e) {
+                    var s=''
+                    var q=''
+                    for(i in e){
+                        if(e[i].uid=='1'){
+                            s+=`<div>${e[i].id}${e[i].title}${e[i].time}${e[i].name}${e[i].content}${e[i].uid}</div>`
+                        }else {
+                            q+=`<div>${e[i].id}${e[i].title}${e[i].time}${e[i].name}${e[i].content}${e[i].uid}</div>`
+                        }
+                    }
+                    $('#one').html(s)
+                    $('#tow').html(q)
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+<ul>
+    <li>企业新闻</li>
+    <li>行业新闻</li>
+</ul>
+<div id="ww">
+    <div id="one">hello</div>
+    <div id="two">小帅哥</div>
+</div>
+</body>
+</html>

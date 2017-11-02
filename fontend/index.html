@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+        #content{
+            width: 200px;
+            height: 150px;
+        }
+    </style>
+    <script src="jquery-3.1.1.js"></script>
+    <script>
+        $(function () {
+            $('#btn').click(function () {
+                var title=$('#title').val()
+                var time=$('#time').val()
+                var name=$('#name').val()
+                var content=$('#content').val()
+                var sel=$('#sel option:selected').val()
+                console.log(title,time,name,content,sel)
+                if(title&&time&&name&&content&&sel!==''){
+                    $.ajax({
+                        url:'http://localhost:3000/item',
+                        type:'post',
+                        dataType:'json',
+                        data:{tit:title,time:time,name:name,con:content,sel:sel},
+                        success:function (e) {
+                            console.log(e)
+                            $('body').html('提交成功')
+                        }
+                    })
+                }else {
+                    alert('请填写')
+                }
+
+          })
+        })
+    </script>
+</head>
+<body>
+<div>标题：<input type="text" id="title"><span></span></div>
+<div>时间：<input type="date" id="time"><span></span></div>
+<div>作者：<input type="text" id="name"><span></span></div>
+<div>内容：<input type="text" id="content"><span></span></div>
+<div>
+    <select name="" id="sel">
+        <option value="0">企业新闻</option>
+        <option value="1">行业新闻</option>
+    </select>
+</div>
+<div><input type="submit" id="btn"></div>
+</body>
+</html>
